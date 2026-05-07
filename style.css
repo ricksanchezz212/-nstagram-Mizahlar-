@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0d0d0d;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 25px;
+  background: linear-gradient(90deg, #ff0055, #ff6600);
+  box-shadow: 0 0 20px #ff0055;
+}
+
+h1 {
+  margin: 0;
+  font-size: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  padding: 15px;
+}
+
+.card {
+  background: #1c1c1c;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: 0 0 10px black;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff0055;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card p {
+  text-align: center;
+  padding: 10px;
+}
