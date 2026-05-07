@@ -2,20 +2,107 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Meme Reactor 🔥</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Günlük Mizah 😄</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #0d0d0d;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px;
+      background: linear-gradient(90deg, #ff0066, #ffcc00);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #feed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .post {
+      width: 90%;
+      max-width: 500px;
+      background: #1c1c1c;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .post img {
+      width: 100%;
+    }
+
+    .post p {
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-  <header>
-    <h1>🔥 MEME REACTOR 🔥</h1>
-    <p>Reddit tarzı canlı meme akışı</p>
 
-    <button onclick="loadMemes()">🔄 Yeni Memeler</button>
-  </header>
+<header>
+  <h1>😄 GÜNLÜK MİZAH</h1>
+  <p>Sürekli güncellenen eğlenceli paylaşımlar</p>
 
-  <div id="grid" class="grid"></div>
+  <p style="opacity:0.7;font-size:13px;">
+    Eğitim amaçlı web projesi
+  </p>
 
-  <script src="script.js"></script>
+  <button onclick="loadFeed()">🔄 Yeni Paylaşımlar</button>
+</header>
+
+<div id="feed"></div>
+
+<script>
+async function loadFeed(){
+  const feed = document.getElementById("feed");
+
+  const res = await fetch("https://meme-api.com/gimme/10");
+  const data = await res.json();
+
+  data.memes.forEach(m => {
+    const post = document.createElement("div");
+    post.className = "post";
+
+    post.innerHTML = `
+      <img src="${m.url}">
+      <p>${m.title}</p>
+    `;
+
+    feed.appendChild(post);
+  });
+}
+
+// ilk yükleme
+loadFeed();
+
+// scroll sonsuz sistem
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+    loadFeed();
+  }
+});
+</script>
+
 </body>
 </html>
