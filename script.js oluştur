@@ -2,22 +2,28 @@ async function loadMemes(){
   const grid = document.getElementById("grid");
   grid.innerHTML = "Yükleniyor...";
 
-  const res = await fetch("https://meme-api.com/gimme/10");
-  const data = await res.json();
+  try {
+    const res = await fetch("https://meme-api.com/gimme/10");
+    const data = await res.json();
 
-  grid.innerHTML = "";
+    grid.innerHTML = "";
 
-  data.memes.forEach(m => {
-    const card = document.createElement("div");
-    card.className = "card";
+    data.memes.forEach(m => {
+      const card = document.createElement("div");
+      card.className = "card";
 
-    card.innerHTML = `
-      <img src="${m.url}">
-      <p>${m.title}</p>
-    `;
+      card.innerHTML = `
+        <img src="${m.url}">
+        <p>${m.title}</p>
+      `;
 
-    grid.appendChild(card);
-  });
+      grid.appendChild(card);
+    });
+
+  } catch (err) {
+    grid.innerHTML = "Meme yüklenemedi 😢";
+    console.log(err);
+  }
 }
 
 loadMemes();
