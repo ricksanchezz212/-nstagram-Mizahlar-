@@ -1,27 +1,23 @@
-const memes = [
-  {img:"https://i.imgflip.com/1bij.jpg", text:"Ders çalışacağım → 5 dk sonra ben"},
-  {img:"https://i.imgflip.com/26am.jpg", text:"Gece 3 düşünceleri"},
-  {img:"https://i.imgflip.com/30b1gx.jpg", text:"Para yok ama hayaller büyük"},
-  {img:"https://i.imgflip.com/4t0m5.jpg", text:"Hayat beni yordu"}
-];
-
-function randomMeme(){
+async function loadMemes(){
   const grid = document.getElementById("grid");
-  const m = memes[Math.floor(Math.random()*memes.length)];
+  grid.innerHTML = "Yükleniyor...";
 
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <img src="${m.img}">
-    <p>${m.text}</p>
-    <button onclick="like(this)">❤️ 0</button>
-  `;
+  const res = await fetch("https://meme-api.com/gimme/10");
+  const data = await res.json();
 
-  grid.prepend(card);
+  grid.innerHTML = "";
+
+  data.memes.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${m.url}">
+      <p>${m.title}</p>
+    `;
+
+    grid.appendChild(card);
+  });
 }
 
-function like(btn){
-  let count = parseInt(btn.innerText.replace("❤️","")) || 0;
-  count++;
-  btn.innerText = "❤️ " + count;
-}
+loadMemes();
