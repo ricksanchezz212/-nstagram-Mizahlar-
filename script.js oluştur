@@ -1,0 +1,27 @@
+const memes = [
+  {img:"https://i.imgflip.com/1bij.jpg", text:"Ders çalışacağım → 5 dk sonra ben"},
+  {img:"https://i.imgflip.com/26am.jpg", text:"Gece 3 düşünceleri"},
+  {img:"https://i.imgflip.com/30b1gx.jpg", text:"Para yok ama hayaller büyük"},
+  {img:"https://i.imgflip.com/4t0m5.jpg", text:"Hayat beni yordu"}
+];
+
+function randomMeme(){
+  const grid = document.getElementById("grid");
+  const m = memes[Math.floor(Math.random()*memes.length)];
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <img src="${m.img}">
+    <p>${m.text}</p>
+    <button onclick="like(this)">❤️ 0</button>
+  `;
+
+  grid.prepend(card);
+}
+
+function like(btn){
+  let count = parseInt(btn.innerText.replace("❤️","")) || 0;
+  count++;
+  btn.innerText = "❤️ " + count;
+}
