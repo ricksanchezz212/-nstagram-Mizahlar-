@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Benim Site</title>
+</head>
+<body>
+  <h1>Selam kanka 👋</h1>
+  <p>GitHub çalışıyor</p>
+</body>
+</html>
